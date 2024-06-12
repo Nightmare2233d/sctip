@@ -2702,6 +2702,7 @@ PlayerStatusRejoin.MouseButton1Click:Connect(function()
 end)
 PlayerStatusDeleteScript.MouseButton1Click:Connect(function()
 	ScreenGui:Destroy()
+        game.UserInputService.JumpRequest:Disconnect()
 end)
 
 
