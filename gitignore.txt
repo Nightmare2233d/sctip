@@ -2131,7 +2131,8 @@ TeleportTabHotelPadding.PaddingBottom = UDim.new(0,8)
 TeleportTabHotelPadding.PaddingLeft = UDim.new(0,8)
 TeleportTabHotelPadding.PaddingRight = UDim.new(0,8)
 TeleportTabHotelPadding.PaddingTop = UDim.new(0,8)
-game.ReplicatedStorage.maps.nn_hotel.Parent = game.Workspace
+if game.ReplicatedStorage.maps:FindFirstChild("nn_hotel") then
+game.ReplicatedStorage.maps.nn_hotel.Parent = game.Workspace end
 
 TeleportTabHotelTitle = Instance.new("TextButton")
 TeleportTabHotelTitle.Parent = TeleportTab
@@ -2221,7 +2222,8 @@ TeleportTabPoolroomsPadding.PaddingBottom = UDim.new(0,8)
 TeleportTabPoolroomsPadding.PaddingLeft = UDim.new(0,8)
 TeleportTabPoolroomsPadding.PaddingRight = UDim.new(0,8)
 TeleportTabPoolroomsPadding.PaddingTop = UDim.new(0,8)
-game.ReplicatedStorage.maps.nn_poolrooms.Parent = game.Workspace
+if game.ReplicatedStorage.maps:FindFirstChild("nn_poolrooms") then
+game.ReplicatedStorage.maps.nn_poolrooms.Parent = game.Workspace end
 
 TeleportTabPoolroomsTitle = Instance.new("TextButton")
 TeleportTabPoolroomsTitle.Parent = TeleportTab
