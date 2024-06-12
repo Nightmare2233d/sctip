@@ -5,6 +5,7 @@ ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = PlayerGui
 ScreenGui.Name = "scriptPanel"
 ScreenGui.ResetOnSpawn = false
+ScreenGui.DisplayOrder = 10
 
 function TeleportTo(placeCFrame)
 	local plyr = game.Players.LocalPlayer
