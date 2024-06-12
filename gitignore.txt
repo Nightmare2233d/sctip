@@ -2600,6 +2600,7 @@ game.UserInputService.InputBegan:Connect(function(input, chatting)
 		scriptPanel.Visible = not scriptPanel.Visible
 	end
         if input.KeyCode == Enum.KeyCode.Z and not chatting then
+                zooming = true
                 previous_fov = game.Players.LocalPlayer.options.Graphics.fov.Value
                 game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", 20)
         end
@@ -2608,6 +2609,7 @@ end)
 game.UserInputService.InputEnded:Connect(function(input, chatting)
         if input.KeyCode == Enum.KeyCode.Z then
                 game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", previous_fov)
+                zooming = false
         end
 end)
 
@@ -2732,6 +2734,7 @@ while PlayerGui:FindFirstChild("scriptPanel") do
         if game.Players.LocalPlayer.PlayerGui.TouchGui.TouchControlFrame:FindFirstChild("JumpButton") then
                 game.Players.LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.JumpButton.Visible = true
         end
+        if not zooming then game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", previous_fov) end
         if GameTabValues["day-night cycle"].ImageButton.Active and game.Lighting.ClockTime == 0 then daycycletween:Play() end
 	wait()
 end
