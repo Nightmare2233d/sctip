@@ -1101,7 +1101,7 @@ create_textbox_value("max speed", 150)
 create_checkbox_value("slide control", game.ReplicatedStorage.module.specificsModule.SlidingControl.Value, function() game.ReplicatedStorage.module.specificsModule.SlidingControl.Value = GameTabValues["slide control"].ImageButton.Active end)
 create_checkbox_value("wav cosmetic effects (experimental)", true) --, print("i hate this"))
 create_checkbox_value("inf jump", false, function() end)
-create_checkbox_value("day-night cycle", false, function() game.Lighting.Brightness = 1.5 daycycletween:Play() end)
+create_checkbox_value("day-night cycle", false, function() if GameTabValues["day-night cycle"].ImageButton.Actige then game.Lighting.Brightness = 1.5 daycycletween:Play() end end)
 
 game.UserInputService.JumpRequest:Connect(function() if GameTabValues["inf jump"].ImageButton.Active then game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping") end end)
 
@@ -2739,7 +2739,7 @@ while PlayerGui:FindFirstChild("scriptPanel") do
                 game.Players.LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.JumpButton.Visible = true
         end
         --if not zooming then game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", game.Players.LocalPlayer.options.Graphics.fov.Value) end
-        if GameTabValues["day-night cycle"].ImageButton.Active and game.Lighting.ClockTime == 0 then daycycletween:Play() end
+        if GameTabValues["day-night cycle"].ImageButton.Active and not daycycletween.Playing then daycycletween:Play() end
 	wait()
 end
 
