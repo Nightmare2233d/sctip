@@ -2739,7 +2739,7 @@ while PlayerGui:FindFirstChild("scriptPanel") do
                 game.Players.LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.JumpButton.Visible = true
         end
         --if not zooming then game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", game.Players.LocalPlayer.options.Graphics.fov.Value) end
-        if GameTabValues["day-night cycle"].ImageButton.Active and not daycycletween.Playing then daycycletween:Play() end
+        if GameTabValues["day-night cycle"].ImageButton.Active then daycycletween:Play() end
 	wait()
 end
 
