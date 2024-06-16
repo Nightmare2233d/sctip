@@ -1102,6 +1102,7 @@ create_checkbox_value("slide control", game.ReplicatedStorage.module.specificsMo
 create_checkbox_value("wav cosmetic effects (experimental)", true) --, print("i hate this"))
 create_checkbox_value("inf jump", false, function() end)
 create_checkbox_value("day-night cycle", false, function() if GameTabValues["day-night cycle"].ImageButton.Active then game.Lighting.Brightness = 1.5 daycycletween:Play() end end)
+create_checkbox_value("fullbright", false, function() end)
 
 game.UserInputService.JumpRequest:Connect(function() if GameTabValues["inf jump"].ImageButton.Active then game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping") end end)
 
@@ -2740,6 +2741,7 @@ while PlayerGui:FindFirstChild("scriptPanel") do
         end
         --if not zooming then game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", game.Players.LocalPlayer.options.Graphics.fov.Value) end
         if GameTabValues["day-night cycle"].ImageButton.Active then daycycletween:Play() end
+        if GameTabValues["fullbright"].ImageButton.Active then game.Lighting.Ambient = Color3.new(1,1,1) end
 	wait()
 end
 
