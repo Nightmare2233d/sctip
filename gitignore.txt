@@ -1099,7 +1099,7 @@ create_textbox_value("gravity", 100, function() game.Workspace.Gravity = GameTab
 create_textbox_value("max speed", 150)
 
 create_checkbox_value("slide control", game.ReplicatedStorage.module.specificsModule.SlidingControl.Value, function() game.ReplicatedStorage.module.specificsModule.SlidingControl.Value = GameTabValues["slide control"].ImageButton.Active end)
-create_checkbox_value("wav cosmetic effects (experimental)", true) --, print("i hate this"))
+create_checkbox_value("wav cosmetic effects", true) --, print("i hate this"))
 create_checkbox_value("inf jump", false, function() end)
 create_checkbox_value("day-night cycle", false, function() if GameTabValues["day-night cycle"].ImageButton.Active then game.Lighting.Brightness = 1.5 daycycletween:Play() end end)
 create_checkbox_value("fullbright", false, function() end)
@@ -2731,6 +2731,7 @@ while PlayerGui:FindFirstChild("scriptPanel") do
                 game.Players.LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.JumpButton.Visible = true
         end
         --if not zooming then game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", game.Players.LocalPlayer.options.Graphics.fov.Value) end
+        if GameTabValues["wav cosmetic effects"].ImageButton.Active then if game.Workspace["game.Players.LocalPlayer.Name]:FindFirstChild("WavCrown") then  game.Workspace["game.Players.LocalPlayer.Name].WavCrown.Handle.Crystals.Script.Enabled = true end end
         if GameTabValues["day-night cycle"].ImageButton.Active then daycycletween:Play() end
         if GameTabValues["fullbright"].ImageButton.Active then game.Lighting.Ambient = Color3.new(1,1,1) end
 	wait()
