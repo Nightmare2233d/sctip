@@ -6,6 +6,7 @@ ScreenGui.Parent = PlayerGui
 ScreenGui.Name = "scriptPanel"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.DisplayOrder = 10
+ScreenGui.IgnoreGuiInset = true
 
 function TeleportTo(placeCFrame)
 	local plyr = game.Players.LocalPlayer
@@ -239,6 +240,30 @@ AutoTabButtonOutline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 AutoTabButtonOutline.Color = Color3.new(1,1,1)
 AutoTabButtonOutline.Transparency = .5
 --AutoTabButtonOutline.Visible = false
+
+ScriptsTabButton = Instance.new("TextButton")
+ScriptsTabButton.Parent = scriptPanelTopTabs
+ScriptsTabButton.Name = "ScriptsTab"
+ScriptsTabButton.LayoutOrder = -1
+ScriptsTabButton.BackgroundColor3 = Color3.new(.3,1,.3)
+ScriptsTabButton.BackgroundTransparency = .8
+ScriptsTabButton.BorderColor3 = Color3.new(.1,.2,.25)
+ScriptsTabButton.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Heavy, Enum.FontStyle.Normal)
+ScriptsTabButton.Text = "scripts"
+ScriptsTabButton.TextColor3 = Color3.new(1,1,1)
+ScriptsTabButton.TextSize = 18
+
+ScriptsTabButtonCorner = Instance.new("UICorner")
+ScriptsTabButtonCorner.Parent = ScriptsTabButton
+ScriptsTabButtonCorner.CornerRadius = UDim.new(0,4)
+ScriptsTabButtonOutline = Instance.new("UIStroke")
+ScriptsTabButtonOutline.Parent = ScriptsTabButton
+ScriptsTabButtonOutline.Name = "outline"
+ScriptsTabButtonOutline.Thickness = 0
+ScriptsTabButtonOutline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+ScriptsTabButtonOutline.Color = Color3.new(1,1,1)
+ScriptsTabButtonOutline.Transparency = .5
+--ScriptsTabButtonOutline.Visible = false
 
 
 
@@ -2134,7 +2159,10 @@ TeleportTabHotelPadding.PaddingLeft = UDim.new(0,8)
 TeleportTabHotelPadding.PaddingRight = UDim.new(0,8)
 TeleportTabHotelPadding.PaddingTop = UDim.new(0,8)
 if game.ReplicatedStorage.maps:FindFirstChild("nn_hotel") then
-game.ReplicatedStorage.maps.nn_hotel.Parent = game.Workspace end
+	local map = game.ReplicatedStorage.maps.nn_hotel
+	map.Parent = game.Workspace
+	map.Name = "nn_hotel_zones"
+end
 
 TeleportTabHotelTitle = Instance.new("TextButton")
 TeleportTabHotelTitle.Parent = TeleportTab
@@ -2225,7 +2253,10 @@ TeleportTabPoolroomsPadding.PaddingLeft = UDim.new(0,8)
 TeleportTabPoolroomsPadding.PaddingRight = UDim.new(0,8)
 TeleportTabPoolroomsPadding.PaddingTop = UDim.new(0,8)
 if game.ReplicatedStorage.maps:FindFirstChild("nn_poolrooms") then
-game.ReplicatedStorage.maps.nn_poolrooms.Parent = game.Workspace end
+	local map = game.ReplicatedStorage.maps.nn_poolrooms
+  map.Parent = game.Workspace
+  map.Name = "nn_poolrooms_zones"
+end
 
 TeleportTabPoolroomsTitle = Instance.new("TextButton")
 TeleportTabPoolroomsTitle.Parent = TeleportTab
@@ -2372,7 +2403,7 @@ TeleportTabDreammazeTitleCorner.CornerRadius = UDim.new(0,4)
 
 TeleportTabDreammazeTitle.MouseButton1Click:Connect(function()
 	ReplicatedStorage.events.player.char.changezone:FireServer("nn_dreammaze")
-        for player in game.Players:GetPlayers() do Instance.new("Highlight").Parent = game.Workspace[player.Name] end
+	for player in game.Players:GetPlayers() do Instance.new("Highlight").Parent = game.Workspace[player.Name] end
 end)
 
 
@@ -2584,6 +2615,210 @@ AutoTabOutbreak.MouseButton1Click:Connect(function()
 	--end
 end)
 
+ScriptsTab = Instance.new("ScrollingFrame")
+ScriptsTab.Parent = TabContainer
+ScriptsTab.Name = "Scripts Tab"
+ScriptsTab.Visible = false
+ScriptsTab.BackgroundTransparency = 1
+ScriptsTab.BorderSizePixel = 0
+ScriptsTab.CanvasSize = UDim2.new(0,0,1,0)
+ScriptsTab.AutomaticCanvasSize = Enum.AutomaticSize.Y
+ScriptsTab.Size = UDim2.new(1,0,1,0)
+ScriptsTab.BottomImage = "rbxasset://textures/ui/Scroll/scroll-bottom.png"
+ScriptsTab.MidImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+ScriptsTab.TopImage = "rbxasset://textures/ui/Scroll/scroll-top.png"
+ScriptsTab.ElasticBehavior = Enum.ElasticBehavior.Always
+ScriptsTab.ScrollBarImageTransparency = .75
+ScriptsTab.ScrollBarThickness = 6
+ScriptsTab.ScrollingDirection = Enum.ScrollingDirection.Y
+ScriptsTab.ClipsDescendants = true
+
+ScriptsTabLayout = Instance.new("UIListLayout")
+ScriptsTabLayout.Parent = ScriptsTab
+ScriptsTabLayout.Padding = UDim.new(0,12)
+ScriptsTabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+ScriptsTabPadding = Instance.new("UIPadding")
+ScriptsTabPadding.Parent = ScriptsTab
+ScriptsTabPadding.PaddingLeft = UDim.new(0,8)
+ScriptsTabPadding.PaddingRight = UDim.new(0,8)
+ScriptsTabPadding.PaddingBottom = UDim.new(0,8)
+ScriptsTabPadding.PaddingTop = UDim.new(0,8)
+
+ScriptsTabNnb = Instance.new("Frame", ScriptsTab)
+ScriptsTabNnb.BackgroundTransparency = .75
+ScriptsTabNnb.BackgroundColor3 = Color3.new(0,0,0)
+ScriptsTabNnb.Size = UDim2.new(1,-4,0,0)
+ScriptsTabNnb.LayoutOrder = 1
+ScriptsTabNnb.AutomaticSize = Enum.AutomaticSize.Y
+ScriptsTabNnbLayout = Instance.new("UIGridLayout", ScriptsTabNnb)
+ScriptsTabNnbLayout.CellPadding = UDim2.new(0,6,0,8)
+ScriptsTabNnbLayout.CellSize = UDim2.new(.5,-6,0,24)
+ScriptsTabPadding:Clone().Parent = ScriptsTabNnb
+
+function create_script(name, order, callback, arg1t, arg1s, arg1def, arg1ph, arg1n, arg2t, arg2s, arg2def, arg2ph, arg2n)
+	local button = Instance.new("TextButton", ScriptsTabNnb)
+	button.Name = name
+	button.BackgroundColor3 = Color3.new(0,0,0)
+	button.BackgroundTransparency = .5
+	button.Text = name
+	button.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+	button.TextSize = 18
+	button.TextColor3 = Color3.new(1,1,1)
+	button.TextTransparency = .25
+	Instance.new("UICorner", button).CornerRadius = UDim.new(0,4)
+	local buttonpadding = Instance.new("UIPadding", button)
+	buttonpadding.PaddingLeft = UDim.new(0,4)
+	buttonpadding.PaddingRight = UDim.new(0,4)
+	
+	if not (arg1s == 0) then
+		button.TextXAlignment = Enum.TextXAlignment.Left
+		local arg1 = Instance.new("ImageLabel", button)
+		arg1.Name = "arg1"
+		arg1.AnchorPoint = Vector2.new(1,.5)
+		arg1.BackgroundTransparency = 1
+		arg1.Position = UDim2.new(1,-arg2s - 4,.5,0)
+		arg1.Size = UDim2.new(0,arg1s,0,28)
+		arg1.Image = "rbxassetid://12483103360"
+		arg1.ImageRectOffset = Vector2.new(24,0)
+		arg1.ImageRectSize = Vector2.new(24,24)
+		arg1.ImageTransparency = .25
+		arg1.ScaleType = Enum.ScaleType.Slice
+		arg1.SliceCenter = Rect.new(8,8,18,18)
+		arg1.SliceScale = 1
+		if arg1t == "textbox" then
+			local arg1box = Instance.new("TextBox", arg1)
+			arg1box.BackgroundTransparency = 1
+			arg1box.Position = UDim2.new(0,5,0,5)
+			arg1box.Size = UDim2.new(1,-10,1,-10)
+			arg1box.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+			arg1box.TextColor3 = Color3.new(1,1,1)
+			arg1box.PlaceholderColor3 = Color3.new(.5,.5,.5)
+			arg1box.PlaceholderText = arg1ph
+			arg1box.Text = arg1def
+			arg1box.TextSize = 16
+			arg1box.TextTransparency = .25
+		else
+			local arg1box = Instance.new("ImageButton", arg1)
+			arg1box.Name = "arg1"
+			arg1box.AnchorPoint = Vector2.new(1,.5)
+			arg1box.BackgroundTransparency = 1
+			arg1box.Position = UDim2.new(1,0,.5,0)
+			arg1box.Size = UDim2.new(0,24,0,24)
+			arg1box.Image = "rbxassetid://12483103360"
+			arg1box.ImageRectOffset = Vector2.new(24,0)
+			arg1box.ImageRectSize = Vector2.new(24,24)
+			arg1.Image = "0"
+			arg1.MouseButton1Click:Connect(function()
+				arg1box:SetAttribute("Active", not arg1box:GetAttribute("Active"))
+				if arg1box:GetAttribute("Active") then 
+					arg1box.ImageRectOffset = Vector2.new(0,0)
+				else
+					arg1box.ImageRectOffset = Vector2.new(24,0)
+				end
+			end)
+		end
+	end
+	
+	if not (arg2s == 0) then
+		local arg2 = Instance.new("ImageLabel", button)
+		arg2.Name = "arg2"
+		arg2.AnchorPoint = Vector2.new(1,.5)
+		arg2.BackgroundTransparency = 1
+		arg2.Position = UDim2.new(1,0,.5,0)
+		arg2.Size = UDim2.new(0,arg2s,0,28)
+		arg2.Image = "rbxassetid://12483103360"
+		arg2.ImageRectOffset = Vector2.new(24,0)
+		arg2.ImageRectSize = Vector2.new(24,24)
+		arg2.ImageTransparency = .25
+		arg2.ScaleType = Enum.ScaleType.Slice
+		arg2.SliceCenter = Rect.new(8,8,18,18)
+		arg2.SliceScale = 1
+		if arg2t == "textbox" then
+			local arg2box = Instance.new("TextBox", arg2)
+			arg2box.BackgroundTransparency = 1
+			arg2box.Position = UDim2.new(0,5,0,5)
+			arg2box.Size = UDim2.new(1,-10,1,-10)
+			arg2box.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+			arg2box.TextColor3 = Color3.new(1,1,1)arg2box.PlaceholderColor3 = Color3.new(.5,.5,.5)
+			arg2box.PlaceholderText = arg2ph
+			arg2box.Text = arg2def
+			arg2box.TextSize = 16
+			arg2box.TextTransparency = .25
+		else
+			local arg2box = Instance.new("ImageButton", arg2)
+			arg2box.AnchorPoint = Vector2.new(1,.5)
+			arg2box.BackgroundTransparency = 1
+			arg2box.Position = UDim2.new(1,0,.5,0)
+			arg2box.Size = UDim2.new(0,24,0,24)
+			arg2box.Image = "rbxassetid://12483103360"
+			arg2box.ImageRectOffset = Vector2.new(24,0)
+			arg2box.ImageRectSize = Vector2.new(24,24)
+			arg2.Size = UDim2.new(0,24,0,28)
+			arg2.Image = "0"
+			arg2box.MouseButton1Click:Connect(function()
+				arg2box:SetAttribute("Active", not arg2box:GetAttribute("Active"))
+				if arg2box:GetAttribute("Active") then 
+					arg2box.ImageRectOffset = Vector2.new(0,0)
+				else
+					arg2box.ImageRectOffset = Vector2.new(24,0)
+				end
+			end)
+		end
+	end
+	
+	button.MouseButton1Click:Connect(function()
+		if arg1t == "textbox" and not (arg2t == "textbox") then
+			if arg1n then
+				callback(tonumber(ScriptsTabNnb[name].arg1.TextBox.Text), ScriptsTabNnb[name].arg2.ImageButton:GetAttribute("Active"))
+			else
+				callback(ScriptsTabNnb[name].arg1.TextBox.Text, ScriptsTabNnb[name].arg2.ImageButton:GetAttribute("Active"))
+			end
+		else
+			if (not (arg1t == "textbox")) and arg2t == "textbox" then
+				if arg2n then
+					callback(ScriptsTabNnb[name].arg1.ImageButton:GetAttribute("Active"), tonumber(ScriptsTabNnb[name].arg2.TextBox.Text))
+				else
+					callback(ScriptsTabNnb[name].arg1.ImageButton:GetAttribute("Active"), ScriptsTabNnb[name].arg2.TextBox.Text)
+				end
+			else
+				if not (arg1t == "textbox" and arg2t == "textbox") then
+					callback(ScriptsTabNnb[name].arg1.ImageButton:GetAttribute("Active"), ScriptsTabNnb[name].arg2.ImageButton:GetAttribute("Active"))
+				else
+					print("i cant do this rn")
+				end
+			end
+		end
+	end)
+	
+end
+
+load_tools = function(item, i)
+	i = tonumber(i)
+	game.ReplicatedStorage.events.game.global.shoppurchasebux:InvokeServer(item, 'Gear', i)
+	while i > 0 do game.ReplicatedStorage.events.game.global.itemequip:InvokeServer(item, 'Gear')
+		game.Players.LocalPlayer.Backpack[item].Parent = game.Workspace[game.Players.LocalPlayer.Name]
+		i -= 1 end
+end
+create_script("      load tools", load_tools, 0, "textbox", 100, "Snowball", "item", false, "textbox", 60, "20", "amount", true)
+create_script("use tools", 2, 0, 0,0,0,0,0,0)
+
+-- size 60 tb default, 24 cb default
+
+ScriptsTabNnbTitle = Instance.new("TextButton", ScriptsTab)
+ScriptsTabNnbTitle.BackgroundColor3 = Color3.new(0,0,0)
+ScriptsTabNnbTitle.BackgroundTransparency = .75
+ScriptsTabNnbTitle.LayoutOrder = 2
+ScriptsTabNnbTitle.Size = UDim2.new(.25,0,0,24)
+ScriptsTabNnbTitle.Text = "nnb"
+ScriptsTabNnbTitle.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+ScriptsTabNnbTitle.TextSize = 18
+ScriptsTabNnbTitle.TextTransparency = .25
+ScriptsTabNnbTitle.TextXAlignment = Enum.TextXAlignment.Center
+Instance.new("UICorner", ScriptsTab).CornerRadius = UDim.new(0,4)
+
+
+
+
 
 PlayerGui.TopbarPlus.TopbarContainer.versionIcon.IconButton.MouseButton1Click:Connect(function()
 	scriptPanel.Visible = not scriptPanel.Visible
@@ -2591,21 +2826,21 @@ PlayerGui.TopbarPlus.TopbarContainer.versionIcon.IconButton.MouseButton1Click:Co
 end)
 
 game.UserInputService.InputBegan:Connect(function(input, chatting)
-	if input.KeyCode == Enum.KeyCode.RightShift then
+	if input.KeyCode == Enum.KeyCode.RightShift and not chatting then
 		scriptPanel.Visible = not scriptPanel.Visible
 	end
-        if input.KeyCode == Enum.KeyCode.Z and not chatting then
-                zooming = true
-                previous_fov = game.Players.LocalPlayer.options.Graphics.fov.Value
-                game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", 20)
-        end
+	if input.KeyCode == Enum.KeyCode.Z and not chatting then
+		zooming = true
+		previous_fov = game.Players.LocalPlayer.options.Graphics.fov.Value
+		game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", 20)
+	end
 end)
 
 game.UserInputService.InputEnded:Connect(function(input, chatting)
-        if input.KeyCode == Enum.KeyCode.Z then
-                game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", previous_fov)
-                zooming = false
-        end
+	if input.KeyCode == Enum.KeyCode.Z then
+		game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", previous_fov)
+		zooming = false
+	end
 end)
 
 --PlayerTab.Visible = false
@@ -2626,6 +2861,8 @@ PlayerTabButton.MouseButton1Click:Connect(function()
 	TeleportTabButtonOutline.Thickness = 0
 	AutoTab.Visible = false
 	AutoTabButtonOutline.Thickness = 0
+	ScriptsTab.Visible = false
+	ScriptsTabButtonOutline.Thickness = 0
 	--scriptPanelBackgroundGradient.ImageColor3 = PlayerTabButton.BackgroundColor3
 end)
 GameTabButton.MouseButton1Click:Connect(function()
@@ -2639,6 +2876,8 @@ GameTabButton.MouseButton1Click:Connect(function()
 	TeleportTabButtonOutline.Thickness = 0
 	AutoTab.Visible = false
 	AutoTabButtonOutline.Thickness = 0
+	ScriptsTab.Visible = false
+	ScriptsTabButtonOutline.Thickness = 0
 end)
 ShopTabButton.MouseButton1Click:Connect(function()
 	PlayerTab.Visible = false
@@ -2651,6 +2890,8 @@ ShopTabButton.MouseButton1Click:Connect(function()
 	TeleportTabButtonOutline.Thickness = 0
 	AutoTab.Visible = false
 	AutoTabButtonOutline.Thickness = 0
+	ScriptsTab.Visible = false
+	ScriptsTabButtonOutline.Thickness = 0
 end)
 TeleportTabButton.MouseButton1Click:Connect(function()
 	PlayerTab.Visible = false
@@ -2663,6 +2904,8 @@ TeleportTabButton.MouseButton1Click:Connect(function()
 	TeleportTabButtonOutline.Thickness = 1
 	AutoTab.Visible = false
 	AutoTabButtonOutline.Thickness = 0
+	ScriptsTab.Visible = false
+	ScriptsTabButtonOutline.Thickness = 0
 	update_player_teleports()
 end)
 AutoTabButton.MouseButton1Click:Connect(function()
@@ -2676,6 +2919,22 @@ AutoTabButton.MouseButton1Click:Connect(function()
 	TeleportTabButtonOutline.Thickness = 0
 	AutoTab.Visible = true
 	AutoTabButtonOutline.Thickness = 1
+	ScriptsTab.Visible = false
+	ScriptsTabButtonOutline.Thickness = 0
+end)
+ScriptsTabButton.MouseButton1Click:Connect(function()
+	PlayerTab.Visible = false
+	PlayerTabButtonOutline.Thickness = 0
+	GameTab.Visible = false
+	GameTabButtonOutline.Thickness = 0
+	ShopTab.Visible = false
+	ShopTabButtonOutline.Thickness = 0
+	TeleportTab.Visible = false
+	TeleportTabButtonOutline.Thickness = 0
+	AutoTab.Visible = false
+	AutoTabButtonOutline.Thickness = 0
+	ScriptsTab.Visible = true
+	ScriptsTabButtonOutline.Thickness = 1
 end)
 
 PlayerStatusKill.MouseButton1Click:Connect(function()
@@ -2695,7 +2954,7 @@ PlayerStatusRejoin.MouseButton1Click:Connect(function()
 end)
 PlayerStatusDeleteScript.MouseButton1Click:Connect(function()
 	ScreenGui:Destroy()
-        game.UserInputService.JumpRequest:Disconnect()
+	game.UserInputService.JumpRequest:Disconnect()
 end)
 
 
@@ -2707,7 +2966,7 @@ end)
 
 
 
-while PlayerGui:FindFirstChild("scriptPanel") do
+while PlayerGui:FindFirstChild("scriptPanel") and wait(1) do
 	local blackout = ""
 	local bloodmoon = ""
 	local munci = ""
@@ -2727,13 +2986,13 @@ while PlayerGui:FindFirstChild("scriptPanel") do
 	game.Workspace.Gravity = GameTabValues.gravity.ImageLabel.TextBox.Text
 	--max speed = GameTabValues["max speed"].ImageLabel.TextBox.Text
 
-        if game.Players.LocalPlayer.PlayerGui.TouchGui.TouchControlFrame:FindFirstChild("JumpButton") then
-                game.Players.LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.JumpButton.Visible = true
-        end
-        --if not zooming then game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", game.Players.LocalPlayer.options.Graphics.fov.Value) end
-        --if GameTabValues["wav cosmetic effects"].ImageButton.Active then if game.Workspace[game.Players.LocalPlayer.Name]:FindFirstChild("WavCrown") then  game.Workspace[game.Players.LocalPlayer.Name].WavCrown.Handle.Crystals.Script.Enabled = true end end
-        if GameTabValues["day-night cycle"].ImageButton.Active then daycycletween:Play() end
-        if GameTabValues["fullbright"].ImageButton.Active then game.Lighting.Ambient = Color3.new(1,1,1) end
+	if game.Players.LocalPlayer.PlayerGui.TouchGui.TouchControlFrame:FindFirstChild("JumpButton") then
+		game.Players.LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.JumpButton.Visible = true
+	end
+	if not zooming then game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", game.Players.LocalPlayer.options.Graphics.fov.Value) end
+	if GameTabValues["wav cosmetic effects"].ImageButton.Active then if game.Workspace[game.Players.LocalPlayer.Name]:FindFirstChild("WavCrown") then  game.Workspace[game.Players.LocalPlayer.Name].WavCrown.Handle.Crystals.Script.Enabled = true end end
+	if GameTabValues["day-night cycle"].ImageButton.Active then daycycletween:Play() end
+	if GameTabValues["fullbright"].ImageButton.Active then game.Lighting.Ambient = Color3.new(1,1,1) end
 	wait()
 end
 
