@@ -2990,7 +2990,7 @@ while PlayerGui:FindFirstChild("scriptPanel") and wait(1) do
 		game.Players.LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.JumpButton.Visible = true
 	end
 	if not zooming then game.ReplicatedStorage.events.game.global.savesettings:FireServer("fov", game.Players.LocalPlayer.options.Graphics.fov.Value) end
-	if GameTabValues["wav cosmetic effects"].ImageButton.Active and game.Workspace[game.Players.LocalPlayer.Name] then if game.Workspace[game.Players.LocalPlayer.Name]:FindFirstChild("WavCrown") then  game.Workspace[game.Players.LocalPlayer.Name].WavCrown.Handle.Crystals.Script.Enabled = true end end
+	if GameTabValues["wav cosmetic effects"].ImageButton.Active and game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name) then if game.Workspace[game.Players.LocalPlayer.Name]:FindFirstChild("WavCrown") then  game.Workspace[game.Players.LocalPlayer.Name].WavCrown.Handle.Crystals.Script.Enabled = true end end
 	if GameTabValues["day-night cycle"].ImageButton.Active then daycycletween:Play() end
 	if GameTabValues["fullbright"].ImageButton.Active then game.Lighting.Ambient = Color3.new(1,1,1) end
 	wait()
